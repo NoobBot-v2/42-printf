@@ -6,23 +6,14 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 14:51:36 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/01 15:54:48 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/01 16:50:38 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-//Take in a pointer to a pointer for current location of fmt
 
 #include "libft.h"
 #include "printf.h"
 
-#include <stdio.h>
-
-// # define SPECIFIERS "cspdiuxX%"
-// # define FLAGS "-+ #0" 
-// # precision flag . will be handled differently
-//% [flags] [width] [.precision] [length] specifier
-
-int	ft_parse_flag(char *c, t_fmt *parsed)
+static int	ft_parse_flag(char *c, t_fmt *parsed)
 {
 	if (!c)
 		return (0);
@@ -39,22 +30,43 @@ int	ft_parse_flag(char *c, t_fmt *parsed)
 	return (1);
 }
 
-void	ft_parse_width_precision(char **str, int *ptr)
+static void	ft_parse_precision(char **str, int *precision)
+{
+	if (**str == '.' )
+	{
+		(*str)++;
+		if (**str == '*')
+		{
+			*precision = -1;
+			(*str)++;
+		}
+		else if (ft_isdigit(**str))
+		{
+			*precision = ft_atoi(*str);
+			while (ft_isdigit(**str) && **str)
+				(*str)++;
+		}
+		else
+			*precision = 0;
+	}
+}
+
+static void	ft_parse_width(char **str, int *width)
 {
 	if (**str == '*')
 	{
-		*ptr = -1;
+		*width = -1;
 		(*str)++;
 	}
 	else if (ft_isdigit(**str))
 	{
-		*ptr = ft_atoi(*str);
-		while (ft_isdigit(**str))
+		*width = ft_atoi(*str);
+		while (ft_isdigit(**str) && **str)
 			(*str)++;
 	}
 }
 
-void	ft_init_fmt(t_fmt *parsed)
+static void	ft_init_fmt(t_fmt *parsed)
 {
 	parsed->minus = 0;
 	parsed->plus = 0;
@@ -67,39 +79,29 @@ void	ft_init_fmt(t_fmt *parsed)
 }
 
 //% [flags] [width] [.precision] specifier
-//parse fmt should move the **str accordingly
 t_fmt	*ft_parse_fmt(char **str)
 {
 	t_fmt	*parsed;
 
 	parsed = (t_fmt *) malloc(sizeof(t_fmt));
-	if (!parsed)
+	if (!parsed || !(*str) || !(**str))
 		return (NULL);
 	ft_init_fmt(parsed);
 	if (**str == '%')//testing purposes only
 		(*str)++;
-	while (ft_parse_flag(ft_strchr(FLAGS, **str), parsed))
+	while (**str && ft_parse_flag(ft_strchr(FLAGS, **str), parsed))
 		(*str)++;
-	ft_parse_width_precision(str, &parsed->width);
-	if (**str == '.' )
-	{
-		(*str)++;
-		ft_parse_width_precision(str, &parsed->precision);
-	}
+	ft_parse_width(str, &parsed->width);
+	ft_parse_precision(str, &parsed->precision);
 	if (ft_strchr(SPECIFIERS,**str))
 	{
-		printf("%s\n","Specifier logic accessed");
 		parsed->specifier = *ft_strchr(SPECIFIERS,**str);
 		(*str)++;
 	}
 	else
 	{
-		printf("%s\n","Undefined specifier");
 		free(parsed);
 		return (NULL);
 	}
-	printf("Width: %d\n",parsed->width);
-	printf("Precision: %d\n",parsed->precision);
-	printf("%s\n","End of ft_parse_fmt");
 	return (parsed);
 }

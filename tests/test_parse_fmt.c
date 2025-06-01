@@ -16,7 +16,6 @@ void test_ft_parse_fmt() {
     t_fmt *parsed;
 
     // 1. Basic specifier %d
-	printf("%d\n",1);
     fmt = "%dHello";
     parsed = ft_parse_fmt(&fmt);
     assert(parsed != NULL);
@@ -32,7 +31,6 @@ void test_ft_parse_fmt() {
     free(parsed);
 
     // 2. Flags: "%-+ #0d"
-	printf("%d\n",2);
     fmt = "%-+ #0dX";
     parsed = ft_parse_fmt(&fmt);
     assert(parsed != NULL);
@@ -48,7 +46,6 @@ void test_ft_parse_fmt() {
     free(parsed);
 
     // 3. Width with number: "%10d"
-	printf("%d\n",3);
     fmt = "%10d!";
     parsed = ft_parse_fmt(&fmt);
     assert(parsed != NULL);
@@ -59,7 +56,6 @@ void test_ft_parse_fmt() {
     free(parsed);
 
     // 4. Precision with dot: "%.5d"
-	printf("%d\n",4);
     fmt = "%.5d?";
     parsed = ft_parse_fmt(&fmt);
     assert(parsed != NULL);
@@ -70,7 +66,6 @@ void test_ft_parse_fmt() {
     free(parsed);
 
     // 5. Width and precision: "%8.3d"
-	printf("%d\n",5);
     fmt = "%8.3d.";
     parsed = ft_parse_fmt(&fmt);
     assert(parsed != NULL);
@@ -81,7 +76,6 @@ void test_ft_parse_fmt() {
     free(parsed);
 
     // 6. Width and precision with * (assuming you store -1 for *)
-	printf("%d\n",6);
     fmt = "%*.*d:";
     parsed = ft_parse_fmt(&fmt);
     assert(parsed != NULL);
@@ -92,7 +86,6 @@ void test_ft_parse_fmt() {
     free(parsed);
 
     // 7. Percent literal "%%"
-	printf("%d\n",7);
     fmt = "%%abc";
     parsed = ft_parse_fmt(&fmt);
     assert(parsed != NULL);
@@ -101,7 +94,6 @@ void test_ft_parse_fmt() {
     free(parsed);
 
     // 8. Invalid specifier: "%q"
-	printf("%d\n",8);
     fmt = "%q";
     parsed = ft_parse_fmt(&fmt);
     assert(parsed == NULL);       // should return NULL
