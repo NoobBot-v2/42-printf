@@ -6,11 +6,11 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 13:04:17 by jsoh              #+#    #+#             */
-/*   Updated: 2025/05/25 16:29:25 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/01 12:24:56 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "libft.h"
 #include <stdarg.h>
 
 //To be put in header file
