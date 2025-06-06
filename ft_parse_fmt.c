@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 14:51:36 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/01 16:50:38 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/06 22:03:27 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static int	ft_parse_flag(char *c, t_fmt *parsed)
 	return (1);
 }
 
+//* is recorded with -1, to use +1 argument from va_list
 static void	ft_parse_precision(char **str, int *precision)
 {
 	if (**str == '.' )
@@ -51,6 +52,7 @@ static void	ft_parse_precision(char **str, int *precision)
 	}
 }
 
+//* is recorded with -1, to use +1 argument from va_list
 static void	ft_parse_width(char **str, int *width)
 {
 	if (**str == '*')
@@ -79,6 +81,7 @@ static void	ft_init_fmt(t_fmt *parsed)
 }
 
 //% [flags] [width] [.precision] specifier
+//% marker will be used externally to call this function
 t_fmt	*ft_parse_fmt(char **str)
 {
 	t_fmt	*parsed;
@@ -87,8 +90,6 @@ t_fmt	*ft_parse_fmt(char **str)
 	if (!parsed || !(*str) || !(**str))
 		return (NULL);
 	ft_init_fmt(parsed);
-	if (**str == '%')//testing purposes only
-		(*str)++;
 	while (**str && ft_parse_flag(ft_strchr(FLAGS, **str), parsed))
 		(*str)++;
 	ft_parse_width(str, &parsed->width);
