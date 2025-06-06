@@ -10,7 +10,7 @@ Description Write a library that contains ft_printf(), a
 function that will mimic the original printf()
 
 # Mandatory
-%c: Prints a single character.
+%c: Prints a single character.\n
 %s: Prints a string of characters until a null terminator ('\0') is encountered.
 %p: Prints a pointer address in hexadecimal format.
 %d: or %i: Prints a signed decimal integer.
