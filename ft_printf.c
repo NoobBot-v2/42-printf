@@ -6,12 +6,13 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 13:04:17 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/06 21:52:33 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/08 13:24:39 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "printf.h"
+#include <stdint.h>
 #include <stdarg.h>
 
 void ft_print_format(const char **s, t_fmt parsed, va_list *ap);

@@ -6,14 +6,39 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 22:40:59 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/06 22:42:38 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/08 14:02:43 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "printf.h"
 
+char	*ft_to_hexbase(uintptr_t uptr);
+
+//if width is *, it will be handled externally
 void	ft_print_fmt_ptr(void *ptr, t_fmt *fmt)
 {
-	ft_putstr_fd("0x", 1);
+	char	*s1;
+	int		s1_len;
+
+	s1 = ft_to_hexbase((uintptr_t) ptr);
+	s1_len = ft_strlen(s1);
+	if (fmt -> minus)
+	{
+		ft_putstr_fd(s1, 1);
+		while (s1_len < (fmt -> width))
+		{
+			ft_putchar_fd(' ', 1);
+			fmt -> width--;
+		}
+	}
+	else
+	{
+		while (s1_len < (fmt -> width))
+		{
+			ft_putchar_fd(' ', 1);
+			fmt -> width--;
+		}
+		ft_putstr_fd(s1, 1);
+	}
 }

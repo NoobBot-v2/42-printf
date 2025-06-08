@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 12:35:16 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/06 21:47:49 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/08 15:38:13 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define PRINTF_H
 # define SPECIFIERS "cspdiuxX%"
 # define FLAGS "-+ #0"
+# include <stdint.h>
+# include <stdarg.h>
 
 typedef struct s_fmt {
 	int minus;
