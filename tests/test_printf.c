@@ -4,6 +4,6 @@
 //% [flags] [width] [.precision] specifier
 int main()
 {
-	printf("%.2s","hello world");
+	printf("%+d",-12345123);
 	return 0;
 }

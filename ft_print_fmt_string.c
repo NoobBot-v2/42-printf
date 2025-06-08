@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 22:37:17 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/08 15:42:33 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/08 17:36:07 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,5 @@ void	ft_print_fmt_string(char *s1, t_fmt *fmt)
 		ft_padding(fmt -> width - print_len);
 		ft_print_substring(s1,print_len);
 	}
+	free(s1);
 }

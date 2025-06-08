@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 14:12:17 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/08 15:42:37 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/08 19:01:20 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 //0 is ignored when - is present
 //0 is ignored when precision is present
 
-static void	ft_padding(char padding_char, int width)
+static void	ft_pad_width(char padding_char, int width)
 {
 	while (width > 0)
 	{
@@ -30,25 +30,71 @@ static void	ft_padding(char padding_char, int width)
 	}
 }
 
-void	ft_print_fmt_i_d(int number, t_fmt *fmt)
+static void	ft_signed_precision(int precision, char **s1, t_fmt *fmt)
 {
-	char	*s1;
-	char	padding_char;
-	int		s1_len;
-
-	padding_char = ' ';
-	s1 = ft_itoa(number);
-	s1_len = ft_strlen(s1);
-
-	if (fmt -> precision == -2 && fmt -> zero)
-		padding_char = '0';
-	if (fmt -> precision)
-	if (fmt -> minus)
+	if (**s1 == '-')
 	{
-
+		ft_putchar_fd('-', 1);
+		(*s1)++;
 	}
 	else
 	{
-		
+		if (fmt -> plus)
+			ft_putchar_fd('+', 1);
+		else if (fmt -> space)
+			ft_putchar_fd(' ', 1);
 	}
+	while (precision > (int)ft_strlen(*s1))
+	{
+		ft_putchar_fd('0', 1);
+		precision--;
+	}
+}
+
+static void	ft_width_precision(char *s1, t_fmt *fmt, int number)
+{
+	int s1_len = (int)ft_strlen(s1);
+	int precision = fmt->precision;
+	int width = fmt->width;
+	int pad_len;
+	int pad_width;
+
+	if (precision > s1_len)
+		pad_len = precision;
+	else
+		pad_len = s1_len;
+	if (width > pad_len)
+		pad_width = width - pad_len;
+	else
+		pad_width = 0;
+	if (pad_width > 0 && number < 0)
+		pad_width--;
+	else if (pad_width > 0 && number >= 0 && (fmt -> plus || fmt -> space))
+		pad_width--;
+	if (fmt->minus)
+	{
+		ft_signed_precision(precision, &s1, fmt);
+		ft_putstr_fd(s1, 1);
+		ft_pad_width(' ', pad_width);
+	}
+	else
+	{
+		if (fmt->zero && precision <= 0)
+			ft_pad_width('0', pad_width);
+		else
+			ft_pad_width(' ', pad_width);
+		ft_signed_precision(precision, &s1, fmt);
+		ft_putstr_fd(s1, 1);
+	}
+}
+
+void	ft_print_fmt_i_d(int number, t_fmt *fmt)
+{
+	char	*s1;
+
+	if (number == 0)
+		s1 = "\0";
+	else
+		s1 = ft_itoa(number);
+	ft_width_precision(s1, fmt, number);
 }
