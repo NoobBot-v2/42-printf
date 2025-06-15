@@ -1,45 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_fmt_ptr.c                                 :+:      :+:    :+:   */
+/*   ft_prototype_hex.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/06 22:40:59 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/15 16:25:52 by jsoh             ###   ########.fr       */
+/*   Created: 2025/06/15 18:49:32 by jsoh              #+#    #+#             */
+/*   Updated: 2025/06/15 19:08:04 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "printf.h"
 
-char	*ft_to_hexptr(uintptr_t uptr);
-
-//if width is *, it will be handled externally
-void	ft_print_fmt_ptr(void *ptr, t_fmt *fmt)
+void print_fmt_hex(t_fmt *fmt)
 {
-	char	*s1;
-	int		s1_len;
-
-	s1 = ft_to_hexptr((uintptr_t) ptr);
-	s1_len = ft_strlen(s1);
-	if (fmt -> minus)
+	if (fmt -> zero && fmt -> minus == 0 && fmt -> precision == -2)
 	{
-		ft_putstr_fd(s1, 1);
-		while (s1_len < (fmt -> width))
+		if (fmt -> hash)
 		{
-			ft_putchar_fd(' ', 1);
-			fmt -> width--;
+			//print 0x/0X
 		}
+		//print width 0 padding
+		//print hex number
 	}
 	else
 	{
-		while (s1_len < (fmt -> width))
-		{
-			ft_putchar_fd(' ', 1);
-			fmt -> width--;
-		}
-		ft_putstr_fd(s1, 1);
+		//resolve precision
+		//resolve hash flag
+		//resolve left/right width
+		//print output accordingly
 	}
-	free(s1);
 }
