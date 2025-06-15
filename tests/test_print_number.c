@@ -4,7 +4,7 @@
 #include "../libft.h"
 #include "../printf.h"
 
-void ft_print_fmt_i_d(int number, t_fmt *fmt);
+void	ft_print_fmt_number(int number, t_fmt *fmt);
 
 // helper to print using standard printf
 void print_with_printf(int number, t_fmt *fmt) {
@@ -39,9 +39,9 @@ void test_fmt(int number, t_fmt *fmt, const char *desc) {
     print_with_printf(number, fmt);
     printf("\"\n");
 
-    printf("ft_print_fmt_i_d: \"");
+    printf("ft_print_fmt_number: \"");
     fflush(stdout);
-    ft_print_fmt_i_d(number, fmt);
+    ft_print_fmt_number(number, fmt);
     fflush(stdout);
     printf("\"\n\n");
 }

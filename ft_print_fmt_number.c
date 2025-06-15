@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_fmt_i_d.c                                 :+:      :+:    :+:   */
+/*   ft_print_fmt_number.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 14:12:17 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/15 14:53:27 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/15 15:35:39 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "printf.h"
 
-//handles both %i %d
+//handles both %i %d %u
 //% [flags] [width] [.precision] specifier
 //if width/precision is *, it will be handled externally
 //Both support the same flags (+, -, 0, space, width, precision, etc.).
@@ -90,7 +90,7 @@ static void	ft_width_precision(char *s1, t_fmt *fmt, int number)
 	ft_print_w_fmt(s1, fmt, pad_width);
 }
 
-void	ft_print_fmt_i_d(int number, t_fmt *fmt)
+void	ft_print_fmt_number(int number, t_fmt *fmt)
 {
 	char	*s1;
 
@@ -99,4 +99,5 @@ void	ft_print_fmt_i_d(int number, t_fmt *fmt)
 	else
 		s1 = ft_itoa(number);
 	ft_width_precision(s1, fmt, number);
+	free(s1);
 }
