@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 14:12:17 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/08 19:01:20 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/15 14:53:27 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,41 +51,43 @@ static void	ft_signed_precision(int precision, char **s1, t_fmt *fmt)
 	}
 }
 
+static void	ft_print_w_fmt(char *s1, t_fmt *fmt, int pad_width)
+{
+	if (fmt->minus)
+	{
+		ft_signed_precision(fmt->precision, &s1, fmt);
+		ft_putstr_fd(s1, 1);
+		ft_pad_width(' ', pad_width);
+	}
+	else
+	{
+		if (fmt->zero && fmt->precision <= 0)
+			ft_pad_width('0', pad_width);
+		else
+			ft_pad_width(' ', pad_width);
+		ft_signed_precision(fmt->precision, &s1, fmt);
+		ft_putstr_fd(s1, 1);
+	}
+}
+
 static void	ft_width_precision(char *s1, t_fmt *fmt, int number)
 {
-	int s1_len = (int)ft_strlen(s1);
-	int precision = fmt->precision;
-	int width = fmt->width;
-	int pad_len;
-	int pad_width;
+	int	pad_len;
+	int	pad_width;
 
-	if (precision > s1_len)
-		pad_len = precision;
+	if (fmt->precision > (int)ft_strlen(s1))
+		pad_len = fmt->precision;
 	else
-		pad_len = s1_len;
-	if (width > pad_len)
-		pad_width = width - pad_len;
+		pad_len = (int)ft_strlen(s1);
+	if (fmt->width > pad_len)
+		pad_width = fmt->width - pad_len;
 	else
 		pad_width = 0;
 	if (pad_width > 0 && number < 0)
 		pad_width--;
 	else if (pad_width > 0 && number >= 0 && (fmt -> plus || fmt -> space))
 		pad_width--;
-	if (fmt->minus)
-	{
-		ft_signed_precision(precision, &s1, fmt);
-		ft_putstr_fd(s1, 1);
-		ft_pad_width(' ', pad_width);
-	}
-	else
-	{
-		if (fmt->zero && precision <= 0)
-			ft_pad_width('0', pad_width);
-		else
-			ft_pad_width(' ', pad_width);
-		ft_signed_precision(precision, &s1, fmt);
-		ft_putstr_fd(s1, 1);
-	}
+	ft_print_w_fmt(s1, fmt, pad_width);
 }
 
 void	ft_print_fmt_i_d(int number, t_fmt *fmt)
