@@ -6,21 +6,12 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 14:12:17 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/15 15:35:46 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/21 23:00:47 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "printf.h"
-
-char	*ft_unsigned_itoa(unsigned n);
-//handles both %i %d %u
-//% [flags] [width] [.precision] specifier
-//if width/precision is *, it will be handled externally
-//Both support the same flags (+, -, 0, space, width, precision, etc.).
-//space is ignored when + is present
-//0 is ignored when - is present
-//0 is ignored when precision is present
 
 static void	ft_pad_width(char padding_char, int width)
 {

@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 22:35:47 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/15 15:36:37 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/21 23:00:33 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	*ft_to_strptr(char s[])
 	return (strptr);
 }
 
-char	*ft_unsigned_itoa(unsigned n)
+char	*ft_unsigned_itoa(unsigned int n)
 {
 	char			temp_str[12];
 	size_t			i;

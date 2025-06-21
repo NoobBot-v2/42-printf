@@ -6,52 +6,12 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 18:49:32 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/21 22:17:02 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/21 23:05:59 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "printf.h"
-
-static void	ft_print_precision(t_fmt *fmt, char *uptr, char pad_char)
-{
-	int	precision_len;
-	int	str_len;
-
-	precision_len = fmt -> precision;
-	str_len = (int)ft_strlen(uptr);
-	while(precision_len > str_len)
-	{
-		ft_putchar_fd(pad_char, 1);
-		precision_len--;
-	}
-}
-
-static void	ft_print_width(t_fmt *fmt, char *uptr, char pad_char)
-{
-	int	pad_len;
-	int	precision_len;
-	int	width_len;
-	int	str_len;
-
-	precision_len = fmt -> precision;
-	width_len = fmt -> width;
-	str_len = (int) ft_strlen(uptr);
-
-	if (precision_len > str_len)
-		pad_len = width_len - precision_len;
-	else if (width_len > str_len)
-		pad_len = width_len - str_len;
-	else
-		pad_len = 0;
-	if (fmt -> hash)
-		pad_len = pad_len - 2;
-	while (pad_len > 0)
-	{
-		ft_putchar_fd(pad_char, 1);
-		pad_len--;
-	}
-}
 
 static void	ft_hash(t_fmt *fmt)
 {
@@ -64,29 +24,44 @@ static void	ft_hash(t_fmt *fmt)
 	}
 }
 
-void	ft_print_fmt_hex(t_fmt *fmt, char *uptr)
+static void	ft_hash_precision_putstr(t_fmt *fmt, char *hex_str)
 {
-	if (fmt -> zero && fmt -> minus == 0 && fmt -> precision == -2)
+	ft_hash(fmt);
+	ft_print_precision(fmt, hex_str, '0');
+	ft_putstr_fd(hex_str, 1);
+}
+
+static void	ft_justification(t_fmt *fmt, char *hex_str)
+{
+	if (fmt -> minus)
 	{
-		ft_hash(fmt);
-		ft_print_width(fmt, uptr, '0');
-		ft_putstr_fd(uptr, 1);
+		ft_hash_precision_putstr(fmt, hex_str);
+		ft_print_width(fmt, hex_str, ' ');
 	}
 	else
 	{
-		if (fmt -> minus)
-		{
-			ft_hash(fmt);
-			ft_print_precision(fmt, uptr, '0');
-			ft_putstr_fd(uptr, 1);
-			ft_print_width(fmt, uptr, ' ');
-		}
-		else
-		{
-			ft_print_width(fmt, uptr, ' ');
-			ft_hash(fmt);
-			ft_print_precision(fmt, uptr, '0');
-			ft_putstr_fd(uptr, 1);
-		}
+		ft_print_width(fmt, hex_str, ' ');
+		ft_hash_precision_putstr(fmt, hex_str);
 	}
+}
+
+void	ft_print_fmt_hex(t_fmt *fmt, unsigned int hex_num)
+{
+	char	*hex_str;
+
+	hex_str = ft_to_hexbase(hex_num);
+	if (fmt -> specifier == 'X')
+		ft_uppercase(hex_str);
+	if (fmt -> precision == 0 && (int)ft_strlen(hex_str)
+		== 1 && *hex_str == '0')
+		ft_print_width(fmt, hex_str, ' ');
+	else if (fmt -> zero && fmt -> minus == 0 && fmt -> precision == -2)
+	{
+		ft_hash(fmt);
+		ft_print_width(fmt, hex_str, '0');
+		ft_putstr_fd(hex_str, 1);
+	}
+	else
+		ft_justification(fmt, hex_str);
+	free(hex_str);
 }

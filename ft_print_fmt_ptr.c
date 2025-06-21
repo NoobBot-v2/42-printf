@@ -6,14 +6,12 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 22:40:59 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/21 20:56:35 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/21 22:32:59 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "printf.h"
-
-char	*ft_to_hexptr(uintptr_t uptr);
 
 //if width is *, it will be handled externally
 void	ft_print_fmt_ptr(void *ptr, t_fmt *fmt)

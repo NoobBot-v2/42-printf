@@ -4,156 +4,127 @@
 #include "../libft.h"
 #include "../printf.h"
 
-void ft_print_fmt_hex(t_fmt *fmt, char *hex_str);
-char	*ft_to_hexbase(unsigned int hex_num);
-
-// helper to print using standard printf with constructed format string
+// Helper to build standard printf format
 void print_with_printf(unsigned int number, t_fmt *fmt) {
-    char format[32] = "%";
+	char format[32] = "%";
 
-    if (fmt->minus) strcat(format, "-");
-    if (fmt->plus)  strcat(format, "+");
-    if (fmt->space) strcat(format, " ");
-    if (fmt->hash)  strcat(format, "#");
-    if (fmt->zero && !fmt->minus && fmt->precision < 0) strcat(format, "0");
+	if (fmt->minus) strcat(format, "-");
+	if (fmt->plus)  strcat(format, "+");
+	if (fmt->space) strcat(format, " ");
+	if (fmt->hash)  strcat(format, "#");
+	if (fmt->zero && !fmt->minus && fmt->precision < 0) strcat(format, "0");
 
-    if (fmt->width > 0) {
-        char width_buf[10];
-        sprintf(width_buf, "%d", fmt->width);
-        strcat(format, width_buf);
-    }
+	if (fmt->width > 0) {
+		char buf[10];
+		sprintf(buf, "%d", fmt->width);
+		strcat(format, buf);
+	}
 
-    if (fmt->precision >= 0) {
-        char prec_buf[10];
-        sprintf(prec_buf, ".%d", fmt->precision);
-        strcat(format, prec_buf);
-    }
+	if (fmt->precision >= 0) {
+		char buf[10];
+		sprintf(buf, ".%d", fmt->precision);
+		strcat(format, buf);
+	}
 
-    strcat(format, (fmt->specifier == 'X') ? "X" : "x");
+	strcat(format, (fmt->specifier == 'X') ? "X" : "x");
 
-    printf(format, number);
+	printf(format, number);
 }
 
-void test_fmt(unsigned int number, t_fmt *fmt, const char *desc) {
-    char *hex_str = ft_to_hexbase(number); // convert number to hex string
+void test_fmt(unsigned int value, t_fmt *fmt, const char *desc) {
+	printf("Test: %s\n", desc);
 
-    printf("Test: %s\n", desc);
+	printf("Standard printf : \"");
+	print_with_printf(value, fmt);
+	printf("\"\n");
 
-    printf("Standard printf : \"");
-    print_with_printf(number, fmt);
-    printf("\"\n");
-
-    printf("print_fmt_hex     : \"");
-    fflush(stdout);
-    ft_print_fmt_hex(fmt, hex_str);
-    fflush(stdout);
-    printf("\"\n\n");
-
-    free(hex_str);
+	printf("ft_print_fmt_hex: \"");
+	fflush(stdout);
+	ft_print_fmt_hex(fmt, value);
+	fflush(stdout);
+	printf("\"\n\n");
 }
-
 int main() {
-    t_fmt fmt;
+	t_fmt fmt;
 
-    // Basic hex without flags
-    memset(&fmt, 0, sizeof(fmt));
-    fmt.width = -2;  // width unspecified
-    fmt.precision = -2;  // precision unspecified
-    fmt.specifier = 'x';
-    test_fmt(42, &fmt, "Basic hex 42");
+	// Zero value, precision 0
+	memset(&fmt, 0, sizeof(fmt));
+	fmt.width = -2;
+	fmt.precision = 0;
+	fmt.specifier = 'x';
+	test_fmt(0, &fmt, "Zero value, precision 0");
 
-    // Hash flag
-    fmt.hash = 1;
-    test_fmt(42, &fmt, "Hash flag");
+	// Zero value, precision 0, hash
+	fmt.hash = 1;
+	test_fmt(0, &fmt, "Zero value, precision 0, hash");
 
-    // Width with zero padding
-    fmt.hash = 0;
-    fmt.zero = 1;
-    fmt.width = 8;
-    test_fmt(42, &fmt, "Width 8 + zero padding");
+	// Uppercase hex
+	memset(&fmt, 0, sizeof(fmt));
+	fmt.width = -2;
+	fmt.precision = -2;
+	fmt.specifier = 'X';
+	test_fmt(0xDEADBEEF, &fmt, "Uppercase hex");
 
-    // Left align with width
-    fmt.zero = 0;
-    fmt.minus = 1;
-    fmt.width = 8;
-    test_fmt(42, &fmt, "Width 8 + left align");
+	// Width smaller than string length
+	memset(&fmt, 0, sizeof(fmt));
+	fmt.width = 3;
+	fmt.precision = -2;
+	fmt.specifier = 'x';
+	test_fmt(0x1234, &fmt, "Width smaller than string length");
 
-    // Width + precision
-    fmt.minus = 0;
-    fmt.width = 10;
-    fmt.precision = 5;
-    test_fmt(42, &fmt, "Width 10 + precision 5");
+	// Width 8 zero padded
+	memset(&fmt, 0, sizeof(fmt));
+	fmt.zero = 1;
+	fmt.width = 8;
+	fmt.precision = -2;
+	fmt.specifier = 'x';
+	test_fmt(0x1f, &fmt, "Width 8 zero padded");
 
-    // Hash + width + precision
-    fmt.hash = 1;
-    fmt.width = 12;
-    fmt.precision = 6;
-    test_fmt(42, &fmt, "Hash + width 12 + precision 6");
-// Zero value, precision 0
-memset(&fmt, 0, sizeof(fmt));
-fmt.width = -2;
-fmt.precision = 0;
-fmt.specifier = 'x';
-test_fmt(0, &fmt, "Zero value, precision 0");
+	// Width 6 left align
+	memset(&fmt, 0, sizeof(fmt));
+	fmt.minus = 1;
+	fmt.width = 6;
+	fmt.precision = -2;
+	fmt.specifier = 'x';
+	test_fmt(0xabc, &fmt, "Width 6 left align");
 
-// Zero value, precision 0, hash
-fmt.hash = 1;
-test_fmt(0, &fmt, "Zero value, precision 0, hash");
+	// Precision 6 pads with zeros
+	memset(&fmt, 0, sizeof(fmt));
+	fmt.width = -2;
+	fmt.precision = 6;
+	fmt.specifier = 'x';
+	test_fmt(0x7f, &fmt, "Precision 6 pads with zeros");
 
-// Uppercase hex, no flags
-memset(&fmt, 0, sizeof(fmt));
-fmt.width = -2;
-fmt.precision = -2;
-fmt.specifier = 'X';
-test_fmt(0xDEADBEEF, &fmt, "Uppercase hex");
+	// Width 10 + precision 6 + hash + zero + uppercase
+	memset(&fmt, 0, sizeof(fmt));
+	fmt.hash = 1;
+	fmt.zero = 1;
+	fmt.width = 10;
+	fmt.precision = 6;
+	fmt.specifier = 'X';
+	test_fmt(0x3A, &fmt, "Width 10 + precision 6 + hash + zero + uppercase");
 
-// Width smaller than string length
-memset(&fmt, 0, sizeof(fmt));
-fmt.width = 3;
-fmt.precision = -2;
-fmt.specifier = 'x';
-test_fmt(0x1234, &fmt, "Width smaller than string length");
+	// Plus and space flags on hex
+	memset(&fmt, 0, sizeof(fmt));
+	fmt.plus = 1;
+	fmt.space = 1;
+	fmt.width = -2;
+	fmt.precision = -2;
+	fmt.specifier = 'x';
+	test_fmt(0x10, &fmt, "Plus and space flags on hex");
 
-// Width 8 zero padded
-memset(&fmt, 0, sizeof(fmt));
-fmt.zero = 1;
-fmt.width = 8;
-fmt.precision = -2;
-fmt.specifier = 'x';
-test_fmt(0x1f, &fmt, "Width 8 zero padded");
-
-// Width 6 left align
-memset(&fmt, 0, sizeof(fmt));
-fmt.minus = 1;
-fmt.width = 6;
-fmt.precision = -2;
-fmt.specifier = 'x';
-test_fmt(0xabc, &fmt, "Width 6 left align");
-
-// Precision 6 pads with zeros
-memset(&fmt, 0, sizeof(fmt));
-fmt.width = -2;
-fmt.precision = 6;
-fmt.specifier = 'x';
-test_fmt(0x7f, &fmt, "Precision 6 pads with zeros");
-
-// Width 10 + precision 6 + hash + zero + uppercase
-memset(&fmt, 0, sizeof(fmt));
-fmt.hash = 1;
-fmt.zero = 1;
-fmt.width = 10;
-fmt.precision = 6;
-fmt.specifier = 'X';
-test_fmt(0x3A, &fmt, "Width 10 + precision 6 + hash + zero + uppercase");
-
-// Plus and space flags on hex
-memset(&fmt, 0, sizeof(fmt));
-fmt.plus = 1;
-fmt.space = 1;
-fmt.width = -2;
-fmt.precision = -2;
-fmt.specifier = 'x';
-test_fmt(0x10, &fmt, "Plus and space flags on hex");
-
-    return 0;
+	// Value & precision is 0 but width != 0
+	memset(&fmt, 0, sizeof(fmt));
+	fmt.width = 5;
+	fmt.precision = 0;
+	fmt.specifier = 'x';
+	test_fmt(0, &fmt, "Value 0, precision 0, width 5");
+	
+	memset(&fmt, 0, sizeof(fmt));
+	fmt.width = 8;            // total field width
+	fmt.precision = -2;       // no precision specified
+	fmt.specifier = 'x';      // lowercase hex
+	test_fmt(0x2A, &fmt, "Width 8, right-justified (default)");
+	
+	return 0;
 }
