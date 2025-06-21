@@ -1,38 +1,27 @@
 #include <stdio.h>
-#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../libft.h"
 
 // Function prototype
-char *ft_to_hexbase(uintptr_t uptr);
+char *ft_to_hexbase(unsigned int value);
 
 // Helper to run and compare results
-void test_hex(void *ptr, const char *desc) {
-    uintptr_t uptr = (uintptr_t)ptr;
-    char *hex_str = ft_to_hexbase(uptr);
+void test_hex(unsigned int value, const char *desc) {
+    char *hex_str = ft_to_hexbase(value);
     printf("Test: %s\n", desc);
-    printf("Input ptr: %p\n", ptr);
+    printf("Input value: %u (0x%X)\n", value, value);
     printf("Output string: %s\n\n", hex_str);
     free(hex_str);
 }
 
-int main() {
-    // Test case 1: NULL pointer
-    test_hex(NULL, "NULL pointer");
-
-    // Test case 2: Address of a stack variable
-    int a = 42;
-    test_hex(&a, "Stack variable");
-
-    // Test case 3: Address of a heap allocation
-    int *heap_ptr = malloc(sizeof(int));
-    *heap_ptr = 100;
-    test_hex(heap_ptr, "Heap allocated variable");
-    free(heap_ptr);
-
-    // Test case 4: Address of a function
-    test_hex((void *)ft_to_hexbase, "Function pointer");
+int main(void) {
+    test_hex(0,        "Zero");
+    test_hex(1,        "One");
+    test_hex(10,       "Ten");
+    test_hex(42,       "Forty-two");
+    test_hex(255,      "Max 8-bit");
+    test_hex(0xDEADBEEF, "Large hex literal");
+    test_hex(4294967295u, "Max unsigned int (0xFFFFFFFF)");
 
     return 0;
 }

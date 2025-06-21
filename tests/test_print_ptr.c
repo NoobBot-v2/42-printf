@@ -12,7 +12,7 @@ int main(void)
         .minus = 1,
         .plus = 0,
         .space = 0,
-        .hex = 0,
+        .hash = 0,
         .zero = 0,
         .width = 20,
         .precision = -1,

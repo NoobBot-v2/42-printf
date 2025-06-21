@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 18:49:39 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/15 18:49:40 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/21 20:58:14 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*ft_to_hexbase(unsigned int hex_num)
 			temp_str[i] = 'a' + ((hex_num % 16) - 10);
 		else
 			temp_str[i] = '0' + (hex_num % 16);
-			hex_num /= 16;
+		hex_num /= 16;
 		i++;
 	}
 	if (hex_num >= 10)
