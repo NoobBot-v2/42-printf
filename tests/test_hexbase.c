@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-// Function prototype
-char *ft_to_hexbase(unsigned int value);
+#include "../src/libft.h"
+#include "../src/printf.h"
 
 // Helper to run and compare results
 void test_hex(unsigned int value, const char *desc) {

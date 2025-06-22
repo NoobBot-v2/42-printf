@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "../libft.h"
-#include "../printf.h"
+#include "../src/libft.h"
+#include "../src/printf.h"
 
-void	ft_print_fmt_number(int number, t_fmt *fmt);
+int	ft_print_fmt_number(int number, t_fmt *fmt);
 
 // helper to print using standard printf
 void print_with_printf(int number, t_fmt *fmt) {
@@ -41,7 +41,7 @@ void test_fmt(int number, t_fmt *fmt, const char *desc) {
 
     printf("ft_print_fmt_number: \"");
     fflush(stdout);
-    ft_print_fmt_number(number, fmt);
+    printf(" printed_count:%i",ft_print_fmt_number(number, fmt));
     fflush(stdout);
     printf("\"\n\n");
 }

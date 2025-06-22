@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "../libft.h"
-#include "../printf.h"
+#include "../src/libft.h"
+#include "../src/printf.h"
 
-void	ft_print_fmt_unsigned(unsigned int number, t_fmt *fmt);
+int	ft_print_fmt_unsigned(unsigned int number, t_fmt *fmt);
 
 void print_with_printf_unsigned(unsigned int number, t_fmt *fmt) {
     char format[20] = "%";
@@ -39,7 +39,7 @@ void test_fmt_unsigned(unsigned int number, t_fmt *fmt, const char *desc) {
 
     printf("ft_print_fmt_unsigned: \"");
     fflush(stdout);
-    ft_print_fmt_unsigned(number, fmt);
+    printf(" print_count:%i",ft_print_fmt_unsigned(number, fmt));
     fflush(stdout);
     printf("\"\n\n");
 }

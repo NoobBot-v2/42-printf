@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <string.h>
-#include "../libft.h"
-#include "../printf.h"
+#include "../src/libft.h"
+#include "../src/printf.h"
 
-void ft_print_fmt_string(char *s1, t_fmt *fmt);
+int ft_print_fmt_string(char *s1, t_fmt *fmt);
 
 // Helper to print string with formatting using standard printf for comparison
 void print_with_printf(char *input, t_fmt *fmt) {
@@ -46,7 +46,7 @@ void test_ft_print_fmt_string(char *input, t_fmt *fmt, const char *desc) {
 
 	printf("ft_print_fmt_str: \"");
 	fflush(stdout);              // flush label immediately
-	ft_print_fmt_string(input, fmt);
+	printf(" print_count:%i",ft_print_fmt_string(input, fmt));
 	printf("\"\n\n");
 	
 }
