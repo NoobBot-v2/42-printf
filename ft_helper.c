@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 22:31:04 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/21 23:04:16 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/22 13:39:05 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,56 @@
 #include "printf.h"
 #include <stdio.h>
 
-void	ft_print_width(t_fmt *fmt, char *hex_str, char pad_char)
+int	ft_print_width(t_fmt *fmt, char *s, char pad_char)
 {
 	int	pad_len;
-	int	precision_len;
-	int	width_len;
 	int	str_len;
+	int	printed_count;
 
-	precision_len = fmt -> precision;
-	width_len = fmt -> width;
-	str_len = (int) ft_strlen(hex_str);
-	if (precision_len > str_len)
-		pad_len = width_len - precision_len;
-	else if (width_len > str_len)
-		pad_len = width_len - str_len;
+	str_len = (int) ft_strlen(s);
+	if (fmt -> precision > str_len)
+		pad_len = fmt -> width - fmt -> precision;
+	else if (fmt -> width > str_len)
+		pad_len = fmt -> width - str_len;
 	else
 		pad_len = 0;
 	if (fmt -> hash)
 		pad_len = pad_len - 2;
-	if (precision_len == 0 && str_len == 1 && *hex_str == '0' && width_len > 0)
+	if (fmt -> precision == 0 && str_len == 1 && *s == '0'
+		&& fmt -> width > 0)
 		pad_len++;
 	while (pad_len > 0)
 	{
 		ft_putchar_fd(pad_char, 1);
 		pad_len--;
+		printed_count++;
 	}
+	return (printed_count);
 }
 
-void	ft_print_precision(t_fmt *fmt, char *hex_str, char pad_char)
+void	ft_print_precision(t_fmt *fmt, char *s, char pad_char)
 {
 	int	precision_len;
 	int	str_len;
+	int	printed_count;
 
+	printed_count = 0;
 	precision_len = fmt -> precision;
-	str_len = (int)ft_strlen(hex_str);
+	str_len = (int)ft_strlen(s);
 	while (precision_len > str_len)
 	{
 		ft_putchar_fd(pad_char, 1);
 		precision_len--;
+		printed_count++;
 	}
+	return (printed_count);
 }
 
-static void	ft_uppercase(char *hex_str)
+void	ft_uppercase(char *s)
 {
-	while (*hex_str)
+	while (*s)
 	{
-		*hex_str = ft_toupper(*hex_str);
-		hex_str++;
+		*s = ft_toupper(*s);
+		s++;
 	}
 }

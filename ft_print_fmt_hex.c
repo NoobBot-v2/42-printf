@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 18:49:32 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/21 23:05:59 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/22 12:19:24 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	ft_justification(t_fmt *fmt, char *hex_str)
 	}
 }
 
-void	ft_print_fmt_hex(t_fmt *fmt, unsigned int hex_num)
+void	ft_print_fmt_hex(unsigned int hex_num, t_fmt *fmt)
 {
 	char	*hex_str;
 

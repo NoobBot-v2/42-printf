@@ -6,38 +6,33 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 22:40:59 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/21 22:32:59 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/22 13:07:44 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "printf.h"
 
-//if width is *, it will be handled externally
-void	ft_print_fmt_ptr(void *ptr, t_fmt *fmt)
+int	ft_print_fmt_ptr(void *ptr, t_fmt *fmt)
 {
 	char	*s1;
 	int		s1_len;
+	int		printed_count;
 
+	printed_count = 0;
 	s1 = ft_to_hexptr((uintptr_t) ptr);
 	s1_len = ft_strlen(s1);
 	if (fmt -> minus)
 	{
 		ft_putstr_fd(s1, 1);
-		while (s1_len < (fmt -> width))
-		{
-			ft_putchar_fd(' ', 1);
-			fmt -> width--;
-		}
+		printed_count = printed_count + ft_print_width(fmt, s1, ' ');
 	}
 	else
 	{
-		while (s1_len < (fmt -> width))
-		{
-			ft_putchar_fd(' ', 1);
-			fmt -> width--;
-		}
+		printed_count = printed_count + ft_print_width(fmt, s1, ' ');
 		ft_putstr_fd(s1, 1);
 	}
+	printed_count = printed_count + s1_len;
 	free(s1);
+	return (printed_count);
 }

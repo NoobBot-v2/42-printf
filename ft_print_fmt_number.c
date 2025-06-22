@@ -6,20 +6,12 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 14:12:17 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/15 15:35:39 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/22 13:11:46 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "printf.h"
-
-//handles both %i %d %u
-//% [flags] [width] [.precision] specifier
-//if width/precision is *, it will be handled externally
-//Both support the same flags (+, -, 0, space, width, precision, etc.).
-//space is ignored when + is present
-//0 is ignored when - is present
-//0 is ignored when precision is present
 
 static void	ft_pad_width(char padding_char, int width)
 {
@@ -30,25 +22,29 @@ static void	ft_pad_width(char padding_char, int width)
 	}
 }
 
-static void	ft_signed_precision(int precision, char **s1, t_fmt *fmt)
+static int	ft_signed_precision(int precision, char **s1, t_fmt *fmt)
 {
+	int	printed_count;
+
+	printed_count = 0;
 	if (**s1 == '-')
 	{
-		ft_putchar_fd('-', 1);
+		printed_count = write(1, '-', 1);
 		(*s1)++;
 	}
 	else
 	{
 		if (fmt -> plus)
-			ft_putchar_fd('+', 1);
+			printed_count = write(1, '+', 1);
 		else if (fmt -> space)
-			ft_putchar_fd(' ', 1);
+			printed_count = write(1, ' ', 1);
 	}
 	while (precision > (int)ft_strlen(*s1))
 	{
-		ft_putchar_fd('0', 1);
+		printed_count += write(1, '0', 1);
 		precision--;
 	}
+	return (printed_count);
 }
 
 static void	ft_print_w_fmt(char *s1, t_fmt *fmt, int pad_width)

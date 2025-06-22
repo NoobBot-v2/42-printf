@@ -6,23 +6,33 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 22:22:18 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/08 14:54:25 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/22 13:37:40 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "printf.h"
 
-//if width is *, it will be handled externally
-void	ft_print_fmt_char(char c, t_fmt *fmt)
+int	ft_print_fmt_char(char c, t_fmt *fmt)
 {
+	int	printed_count;
+
+	printed_count = 0;
 	if (fmt -> minus)
+	{
 		ft_putchar_fd(c, 1);
+		printed_count++;
+	}
 	while ((fmt -> width) > 1)
 	{
 		ft_putchar_fd(' ', 1);
+		printed_count++;
 		fmt -> width--;
 	}
 	if (!(fmt -> minus))
+	{
 		ft_putchar_fd(c, 1);
+		printed_count++;
+	}
+	return (printed_count);
 }

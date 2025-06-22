@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 12:35:16 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/21 23:04:09 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/22 13:07:40 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ typedef struct s_fmt {
 	char specifier;
 } t_fmt;
 
-void	ft_print_fmt_char(char c, t_fmt *fmt);
-void	ft_print_fmt_string(char *s1, t_fmt *fmt);
+int	ft_print_fmt_char(char c, t_fmt *fmt);
+int	ft_print_fmt_string(char *s1, t_fmt *fmt);
 void	ft_print_fmt_number(int number, t_fmt *fmt);
-void	ft_print_fmt_ptr(void *ptr, t_fmt *fmt);
+int	ft_print_fmt_ptr(void *ptr, t_fmt *fmt);
 void	ft_print_fmt_unsigned(unsigned int number, t_fmt *fmt);
-void	ft_print_fmt_hex(t_fmt *fmt, unsigned int hex_num);
-void	ft_print_width(t_fmt *fmt, char *hex_str, char pad_char);
+void	ft_print_fmt_hex(unsigned int hex_num, t_fmt *fmt);
+int	ft_print_width(t_fmt *fmt, char *s, char pad_char);
 void	ft_print_precision(t_fmt *fmt, char *hex_str, char pad_char);
 char	*ft_to_hexbase(unsigned int hex_num);
 char	*ft_to_hexptr(uintptr_t uptr);

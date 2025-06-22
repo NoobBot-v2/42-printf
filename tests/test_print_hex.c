@@ -40,7 +40,7 @@ void test_fmt(unsigned int value, t_fmt *fmt, const char *desc) {
 
 	printf("ft_print_fmt_hex: \"");
 	fflush(stdout);
-	ft_print_fmt_hex(fmt, value);
+	ft_print_fmt_hex(value, fmt);
 	fflush(stdout);
 	printf("\"\n\n");
 }

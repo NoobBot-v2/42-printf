@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 14:51:36 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/21 22:19:26 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/22 13:40:13 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static int	ft_parse_flag(char *c, t_fmt *parsed)
 	return (1);
 }
 
-//* is recorded with -1, to use +1 argument from va_list
 static void	ft_parse_precision(char **str, int *precision)
 {
 	if (**str == '.' )
@@ -52,7 +51,6 @@ static void	ft_parse_precision(char **str, int *precision)
 	}
 }
 
-//* is recorded with -1, to use +1 argument from va_list
 static void	ft_parse_width(char **str, int *width)
 {
 	if (**str == '*')

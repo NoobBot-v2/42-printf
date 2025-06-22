@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 13:04:17 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/15 15:00:32 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/22 13:41:27 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,27 @@
 #include <stdint.h>
 #include <stdarg.h>
 
-void ft_print_format(const char **s, t_fmt parsed, va_list *ap);
-t_fmt ft_parse_fmt(const char **s);
+int	ft_print_format(t_fmt *fmt, va_list *ap);
+t_fmt	*ft_parse_fmt(char **str);
 
+//fmt here refers to the string to be printed
 int	ft_printf(const char *fmt, ...)
 {
 	va_list ap;
-	t_fmt parsed;
+	int	printed_count;
 
+	printed_count = 0;
 	va_start(ap, fmt);
-	//va_arg does not know when ... ends, depends on the expected inputs parsed from fmt
-	//va_arg(ap, int);//Depends on the type input when parsing
 	while (*fmt)
 	{
 		if (*fmt == '%')
-			ft_print_format(&fmt, ft_parse_fmt(&fmt), &ap);//Takes parsed and va_arg and prints to output
+			printed_count += ft_print_format(ft_parse_fmt(&fmt), &ap);
 		else
 		{
-			ft_putchar_fd(*fmt,1);
-			fmt++;//Maybe put this into ft_putchar_fd to save lines
+			printed_count += write(1, *fmt, 1);
+			fmt++;
 		}
 	}
 	va_end(ap);
+	return (printed_count);
 }

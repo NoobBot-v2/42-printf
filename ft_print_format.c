@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 21:49:42 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/21 23:07:09 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/06/22 13:36:22 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,51 @@
 //-2 means undefined for width/precision
 //# define SPECIFIERS "cspdiuxX%"
 //% [flags] [width] [.precision] specifier
-void	ft_print_format(const char **s, t_fmt *fmt, va_list *ap)
+static void	ft_check_va_width(t_fmt *fmt, va_list *ap)
 {
-	char	*to_print;
+	int	w;
+	if (fmt -> width == -1)
+	{
+		w = va_arg(*ap, int);
+		if (w < 0)
+		{
+			fmt -> minus = 1;
+			fmt -> width = -w;
+		}
+		else
+			fmt -> width = w;
+	}
+}
 
+static void	ft_check_va_precision(t_fmt *fmt, va_list *ap)
+{
+	int	p;
+	if (fmt -> precision == -1)
+	{
+		p = va_arg(*ap, int);
+		if (p < 0)
+			fmt -> precision = -2;
+		else
+			fmt -> precision = p;
+	}
+}
+
+int	ft_print_format(t_fmt *fmt, va_list *ap)
+{
+	int	printed_count;
+	ft_check_va_width(fmt, ap);
+	ft_check_va_precision(fmt, ap);
 	if (fmt -> specifier == 'c')
-		to_print = "char";
+		printed_count = ft_print_fmt_char((char)va_arg(*ap, int), fmt);
 	if (fmt -> specifier == 's')
-		to_print = "string";
+		printed_count = ft_print_fmt_string(va_arg(*ap, char*), fmt);
 	if (fmt -> specifier == 'p')
-		to_print = "void ptr arg";
-	if (fmt -> specifier == 'd')
-		to_print = "decimal base 10";
-	if (fmt -> specifier == 'i')
-		to_print = "integer";
+		ft_print_fmt_ptr(va_arg(*ap, void*), fmt);
+	if (fmt -> specifier == 'd' || fmt -> specifier == 'i')
+		ft_print_fmt_number(va_arg(*ap, int), fmt);
 	if (fmt -> specifier == 'u')
-		to_print = "unsigned decimal base 10";
-	if (fmt -> specifier == 'x')
-		to_print = "lowercase hexadecimal";
-	if (fmt -> specifier == 'X')
-		to_print = "uppercase hexadecimal";
+		ft_print_fmt_unsigned(va_arg(*ap, unsigned int), fmt);
+	if (fmt -> specifier == 'x' || fmt -> specifier == 'X')
+		ft_print_fmt_hex(va_arg(*ap, unsigned int), fmt);
+	return (printed_count);
 }
