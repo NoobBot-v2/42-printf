@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/25 13:04:17 by jsoh              #+#    #+#             */
-/*   Updated: 2025/07/06 14:19:16 by jsoh             ###   ########.fr       */
+/*   Created: 2025/05/08 20:00:18 by jsoh              #+#    #+#             */
+/*   Updated: 2025/05/16 23:13:56 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "libft.h"
 
-//fmt here refers to the string to be printed
-int	ft_printf(const char *fmt, ...)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	va_list	ap;
-	int		printed_count;
+	size_t	i;
 
-	printed_count = 0;
-	va_start(ap, fmt);
-	while (*fmt)
+	i = 0;
+	if (size > 0)
 	{
-		if (*fmt == '%')
+		while (src[i] != '\0' && i < (size - 1))
 		{
-			fmt++;
-			t_fmt *parsed = ft_parse_fmt(&fmt);
-			printed_count += ft_print_format(parsed, &ap);
-			free(parsed);
+			dst[i] = src[i];
+			i++;
 		}
-		else
-		{
-			printed_count += write(1, fmt, 1);
-			fmt++;
-		}
+		dst[i] = '\0';
 	}
-	va_end(ap);
-	return (printed_count);
+	return (ft_strlen(src));
 }

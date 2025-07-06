@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 21:49:42 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/22 16:19:28 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/07/06 14:11:46 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,20 @@ int	ft_print_format(t_fmt *fmt, va_list *ap)
 
 	ft_check_va_width(fmt, ap);
 	ft_check_va_precision(fmt, ap);
+	printed_count = 0;
 	if (fmt -> specifier == 'c')
 		printed_count = ft_print_fmt_char((char)va_arg(*ap, int), fmt);
-	if (fmt -> specifier == 's')
+	else if (fmt -> specifier == 's')
 		printed_count = ft_print_fmt_string(va_arg(*ap, char *), fmt);
-	if (fmt -> specifier == 'p')
+	else if (fmt -> specifier == 'p')
 		printed_count = ft_print_fmt_ptr(va_arg(*ap, void *), fmt);
-	if (fmt -> specifier == 'd' || fmt -> specifier == 'i')
+	else if (fmt -> specifier == 'd' || fmt -> specifier == 'i')
 		printed_count = ft_print_fmt_number(va_arg(*ap, int), fmt);
-	if (fmt -> specifier == 'u')
+	else if (fmt -> specifier == 'u')
 		printed_count = ft_print_fmt_unsigned(va_arg(*ap, unsigned int), fmt);
-	if (fmt -> specifier == 'x' || fmt -> specifier == 'X')
+	else if (fmt -> specifier == 'x' || fmt -> specifier == 'X')
 		printed_count = ft_print_fmt_hex(va_arg(*ap, unsigned int), fmt);
-	if (fmt -> specifier == '%')
+	else if (fmt -> specifier == '%')
 		printed_count = ft_print_string("%");
 	return (printed_count);
 }

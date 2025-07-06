@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 18:49:32 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/22 15:33:16 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/07/06 14:18:05 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ int	ft_print_fmt_hex(unsigned int hex_num, t_fmt *fmt)
 	}
 	else
 		printed_count += ft_justification(fmt, hex_str);
+	free(hex_str);
 	return (printed_count);
 }

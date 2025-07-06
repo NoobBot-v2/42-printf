@@ -5,7 +5,7 @@
 #include "../src/printf.h"
 
 // Prototype for your parser
-t_fmt *ft_parse_fmt(char **str);
+t_fmt *ft_parse_fmt(const char **str);
 
 // Helper: reset pointer to initial string each time
 void reset_str(char **dst, const char *src) {
@@ -13,7 +13,7 @@ void reset_str(char **dst, const char *src) {
 }
 
 void test_ft_parse_fmt() {
-    char *fmt;
+    const char *fmt;
     t_fmt *parsed;
 
     // 1. Basic specifier d
@@ -99,6 +99,7 @@ void test_ft_parse_fmt() {
     parsed = ft_parse_fmt(&fmt);
     assert(parsed == NULL);       // should return NULL
     assert(fmt[0] == 'q');        // pointer may or may not advance, depending on your implementation
+	free(parsed);
 
 	// 9
 	fmt = "*d";
@@ -107,6 +108,7 @@ void test_ft_parse_fmt() {
 	assert(parsed->width == -1);       // Convention: -1 or special flag for dynamic width
 	assert(parsed->precision == -2);   // Not set
 	assert(parsed->specifier == 'd');
+	free(parsed);
 
 	// Test 1: Width is '*'
 	fmt = "*d";
@@ -115,6 +117,7 @@ void test_ft_parse_fmt() {
 	assert(parsed->width == -1);        // convention: -1 means dynamic
 	assert(parsed->precision == -2);    // -2 = unset
 	assert(parsed->specifier == 'd');
+	free(parsed);
 
 	// Test 2: Precision is '*'
 	fmt = ".*d";
@@ -123,6 +126,7 @@ void test_ft_parse_fmt() {
 	assert(parsed->width == -2);
 	assert(parsed->precision == -1);    // -1 = dynamic precision
 	assert(parsed->specifier == 'd');
+	free(parsed);
 
 	// Test 3: Width and Precision are '*'
 	fmt = "*.*d";
@@ -131,6 +135,7 @@ void test_ft_parse_fmt() {
 	assert(parsed->width == -1);
 	assert(parsed->precision == -1);
 	assert(parsed->specifier == 'd');
+	free(parsed);
 
 	// Test 4: Width is number, precision is '*'
 	fmt = "10.*d";
@@ -139,6 +144,7 @@ void test_ft_parse_fmt() {
 	assert(parsed->width == 10);
 	assert(parsed->precision == -1);
 	assert(parsed->specifier == 'd');
+	free(parsed);
 
 	// Test 5: Width is '*', precision is number
 	fmt = "*.5d";
@@ -147,6 +153,7 @@ void test_ft_parse_fmt() {
 	assert(parsed->width == -1);
 	assert(parsed->precision == 5);
 	assert(parsed->specifier == 'd');
+	free(parsed);
 
 	// Test 6: No width/precision
 	fmt = "d";
@@ -155,6 +162,7 @@ void test_ft_parse_fmt() {
 	assert(parsed->width == -2);
 	assert(parsed->precision == -2);
 	assert(parsed->specifier == 'd');
+	free(parsed);
 
 	fmt = "-+ 0dRest";
 	parsed = ft_parse_fmt(&fmt);

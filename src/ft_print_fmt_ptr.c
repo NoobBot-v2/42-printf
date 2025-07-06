@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 22:40:59 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/22 16:54:42 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/07/06 14:18:45 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ int	ft_print_fmt_ptr(void *ptr, t_fmt *fmt)
 			printed_count += ft_print_string(s1);
 		}
 	}
+	free(s1);
 	return (printed_count);
 }
