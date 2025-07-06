@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 14:12:17 by jsoh              #+#    #+#             */
-/*   Updated: 2025/07/06 14:53:01 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/07/06 16:31:47 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_print_fmt_unsigned(unsigned int number, t_fmt *fmt)
 	if (number == 0)
 		s1 = ft_strdup("0");
 	else
-		s1 = ft_itoa(number);
+		s1 = ft_unsigned_itoa(number);
 	printed_count = ft_print_w_fmt(s1, fmt);
 	free(s1);
 	return (printed_count);

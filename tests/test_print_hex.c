@@ -86,7 +86,7 @@ int main() {
     memset(&fmt, 0, sizeof(fmt));
     fmt.zero = 1;
     fmt.width = 8;
-    fmt.precision = -1;
+    fmt.precision = -2;
     fmt.specifier = 'x';
     test_fmt(0x7d, &fmt, "Zero padding, width 8");
 
