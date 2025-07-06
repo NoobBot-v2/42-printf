@@ -19,7 +19,7 @@ void	test_char_output(char c, int width, int left_align) {
 	if (left_align && width > 1)
 		for (int i = 1; i < width; i++) putchar(' ');
 
-	printf("\"\nYour output   : \"");
+	printf("\"\nYour output    : \"");
 	fflush(stdout); // ensure aligned output
 
 	// Call your function and print the output inline

@@ -46,7 +46,7 @@ void test_ft_print_fmt_string(char *input, t_fmt *fmt, const char *desc) {
 
 	printf("ft_print_fmt_str: \"");
 	fflush(stdout);              // flush label immediately
-	printf(" print_count:%i",ft_print_fmt_string(input, fmt));
+	ft_print_fmt_string(input, fmt);
 	printf("\"\n\n");
 	
 }

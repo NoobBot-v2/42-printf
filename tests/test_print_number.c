@@ -35,15 +35,15 @@ void print_with_printf(int number, t_fmt *fmt) {
 void test_fmt(int number, t_fmt *fmt, const char *desc) {
     printf("Test: %s\n", desc);
 
-    printf("Standard printf : \"");
+    printf("Standard printf :    \"");
     print_with_printf(number, fmt);
     printf("\"\n");
 
     printf("ft_print_fmt_number: \"");
     fflush(stdout);
-    printf(" printed_count:%i",ft_print_fmt_number(number, fmt));
+    int count = ft_print_fmt_number(number, fmt);
     fflush(stdout);
-    printf("\"\n\n");
+    printf("\" (printed chars: %d)\n\n", count);
 }
 
 int main() {
@@ -171,6 +171,7 @@ int main() {
 	fmt.width = 5;
 	fmt.specifier = 'd';
 	test_fmt(42, &fmt, "Zero flag → pad with 0s");
+	printf("\"%05d\"\n\n", 42);
 
 	// 19. Zero-padding ignored due to precision
 	memset(&fmt, 0, sizeof(fmt));

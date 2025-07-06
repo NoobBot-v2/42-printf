@@ -33,13 +33,13 @@ void print_with_printf_unsigned(unsigned int number, t_fmt *fmt) {
 void test_fmt_unsigned(unsigned int number, t_fmt *fmt, const char *desc) {
     printf("Test: %s\n", desc);
 
-    printf("Standard printf : \"");
+    printf("Standard printf :      \"");
     print_with_printf_unsigned(number, fmt);
     printf("\"\n");
 
     printf("ft_print_fmt_unsigned: \"");
     fflush(stdout);
-    printf(" print_count:%i",ft_print_fmt_unsigned(number, fmt));
+	ft_print_fmt_unsigned(number, fmt);
     fflush(stdout);
     printf("\"\n\n");
 }

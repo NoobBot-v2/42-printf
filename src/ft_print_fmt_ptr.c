@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 22:40:59 by jsoh              #+#    #+#             */
-/*   Updated: 2025/07/06 14:18:45 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/07/06 17:09:16 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ int	ft_print_fmt_ptr(void *ptr, t_fmt *fmt)
 
 	printed_count = 0;
 	if (!ptr)
-		return (ft_print_string("(nil)"));
-	s1 = ft_to_hexptr((uintptr_t) ptr);
+		s1 = ft_strdup("(nil)");
+	else
+		s1 = ft_to_hexptr((uintptr_t) ptr);
 	if (fmt -> minus)
 	{
 		printed_count += ft_print_string(s1);

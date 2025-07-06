@@ -6,11 +6,22 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 22:31:04 by jsoh              #+#    #+#             */
-/*   Updated: 2025/06/22 16:15:35 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/07/06 16:51:54 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+
+static void ft_check_sign(t_fmt *fmt)
+{
+	if (fmt->specifier == 'd' || fmt->specifier == 'i')
+	{
+		if (fmt->plus)
+			fmt->width--;
+		else if (fmt->space)
+			fmt->width--;
+	}
+}
 
 int	ft_print_width(t_fmt *fmt, char *s, char pad_char)
 {
@@ -20,6 +31,7 @@ int	ft_print_width(t_fmt *fmt, char *s, char pad_char)
 
 	printed_count = 0;
 	str_len = (int) ft_strlen(s);
+	ft_check_sign(fmt);
 	if (fmt -> precision > str_len)
 		pad_len = fmt -> width - fmt -> precision;
 	else if (fmt -> width > str_len)
