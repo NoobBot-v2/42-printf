@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 13:04:17 by jsoh              #+#    #+#             */
-/*   Updated: 2025/07/06 14:19:16 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/07/06 14:51:17 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 int	ft_printf(const char *fmt, ...)
 {
 	va_list	ap;
+	t_fmt	*parsed;
 	int		printed_count;
 
 	printed_count = 0;
@@ -25,7 +26,7 @@ int	ft_printf(const char *fmt, ...)
 		if (*fmt == '%')
 		{
 			fmt++;
-			t_fmt *parsed = ft_parse_fmt(&fmt);
+			parsed = ft_parse_fmt(&fmt);
 			printed_count += ft_print_format(parsed, &ap);
 			free(parsed);
 		}

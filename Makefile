@@ -79,7 +79,8 @@ TEST_FILES = \
 	test_print_number.c \
 	test_print_ptr.c \
 	test_print_str.c \
-	test_print_unsigned.c
+	test_print_unsigned.c \
+	test_42printf_zero.c
 
 TEST_BINS = $(patsubst %.c, $(TEST_DIR)/%, $(TEST_FILES))
 
