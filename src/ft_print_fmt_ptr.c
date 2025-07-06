@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 22:40:59 by jsoh              #+#    #+#             */
-/*   Updated: 2025/07/06 17:09:16 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/07/06 18:22:33 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_print_fmt_ptr(void *ptr, t_fmt *fmt)
 	}
 	else
 	{
-		if (fmt -> zero)
+		if (fmt -> zero && ptr)
 			printed_count += ft_print_pad_zero(fmt, s1);
 		else
 		{

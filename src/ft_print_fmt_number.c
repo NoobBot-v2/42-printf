@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 14:12:17 by jsoh              #+#    #+#             */
-/*   Updated: 2025/07/06 16:59:29 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/07/06 19:52:58 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static int	ft_signed_precision(char **s1, t_fmt *fmt)
 		else if (fmt -> space)
 			printed_count += write(1, " ", 1);
 	}
+	//Zero padding here first
+	//Also check for printing sign regardless of precision 0/ space
 	printed_count += ft_print_precision(fmt, *s1, '0');
 	return (printed_count);
 }
@@ -46,8 +48,6 @@ static int	ft_print_w_fmt(char *s1, t_fmt *fmt)
 	}
 	else
 	{
-		if (*s1 == '-')
-			fmt -> width --;
 		if (fmt->zero && fmt->precision <= 0)
 			printed_count += ft_print_width(fmt, s1, '0');
 		else

@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 22:31:04 by jsoh              #+#    #+#             */
-/*   Updated: 2025/07/06 16:51:54 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/07/06 19:43:23 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@ int	ft_print_width(t_fmt *fmt, char *s, char pad_char)
 	int	printed_count;
 
 	printed_count = 0;
+	pad_len = 0;
 	str_len = (int) ft_strlen(s);
 	ft_check_sign(fmt);
 	if (fmt -> precision > str_len)
+	{
 		pad_len = fmt -> width - fmt -> precision;
+		if (*s == '-')
+			pad_len--;
+	}
 	else if (fmt -> width > str_len)
 		pad_len = fmt -> width - str_len;
-	else
-		pad_len = 0;
-	if (fmt -> hash)
+	if (fmt -> hash && ( fmt -> specifier == 'x'|| fmt -> specifier == 'X'))
 		pad_len = pad_len - 2;
-	if (fmt -> precision == 0 && str_len == 1 && *s == '0'
-		&& fmt -> width > 0)
-		pad_len++;
 	while (pad_len > 0)
 	{
 		ft_putchar_fd(pad_char, 1);
