@@ -6,20 +6,23 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 22:31:04 by jsoh              #+#    #+#             */
-/*   Updated: 2025/07/09 22:03:45 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/07/09 22:21:50 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static void	ft_check_sign(t_fmt *fmt)
+static void	ft_check_sign(t_fmt *fmt, char *s1)
 {
 	if (fmt->specifier == 'd' || fmt->specifier == 'i')
 	{
-		if (fmt->plus)
-			fmt->width--;
-		else if (fmt->space)
-			fmt->width--;
+		if ( *s1 != '-')
+		{
+			if (fmt->plus)
+				fmt->width--;
+			else if (fmt->space)
+				fmt->width--;	
+		}
 	}
 }
 
@@ -59,7 +62,7 @@ int	ft_print_width(t_fmt *fmt, char *s, char pad_char)
 	else if (fmt -> width > str_len)
 		pad_len = fmt -> width - str_len;
 	if (ft_check_hex_value(fmt, s))
-		pad_len = (fmt -> width - str_len) - 2;
+		pad_len = pad_len - 2;
 	while (pad_len > 0)
 	{
 		ft_putchar_fd(pad_char, 1);
