@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 14:12:17 by jsoh              #+#    #+#             */
-/*   Updated: 2025/07/09 21:17:05 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/07/09 22:01:09 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,3 @@ int	ft_print_fmt_number(int number, t_fmt *fmt)
 	free(s1);
 	return (printed_count);
 }
-

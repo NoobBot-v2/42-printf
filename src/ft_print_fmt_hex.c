@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 18:49:32 by jsoh              #+#    #+#             */
-/*   Updated: 2025/07/09 21:37:09 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/07/09 22:04:07 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	ft_hash(t_fmt *fmt, char *hex_str)
 {
 	if (fmt -> hash)
 	{
-		if ( (int) ft_strlen(hex_str) == 1 && *hex_str == '0')
+		if ((int) ft_strlen(hex_str) == 1 && *hex_str == '0')
 			return (0);
 		if (fmt -> specifier == 'X')
 			ft_putstr_fd("0X", 1);
@@ -67,7 +67,10 @@ int	ft_print_fmt_hex(unsigned int hex_num, t_fmt *fmt)
 		ft_uppercase(hex_str);
 	if (fmt -> precision == 0 && (int)ft_strlen(hex_str)
 		== 1 && *hex_str == '0')
+	{
+		fmt -> width ++;
 		printed_count += ft_print_width(fmt, hex_str, ' ');
+	}
 	else if (fmt -> zero && fmt -> minus == 0 && fmt -> precision == -2)
 	{
 		printed_count += ft_hash(fmt, hex_str);

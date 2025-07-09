@@ -6,13 +6,13 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 22:31:04 by jsoh              #+#    #+#             */
-/*   Updated: 2025/07/09 21:49:00 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/07/09 22:03:45 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static void ft_check_sign(t_fmt *fmt)
+static void	ft_check_sign(t_fmt *fmt)
 {
 	if (fmt->specifier == 'd' || fmt->specifier == 'i')
 	{
@@ -23,18 +23,19 @@ static void ft_check_sign(t_fmt *fmt)
 	}
 }
 
-static int ft_check_hex_value(t_fmt *fmt, char *hex_str)
+static int	ft_check_hex_value(t_fmt *fmt, char *hex_str)
 {
 	int	should_hex;
 
 	should_hex = 0;
-	if (fmt -> hash && ( fmt -> specifier == 'x'|| fmt -> specifier == 'X'))
+	if (fmt -> hash && (fmt -> specifier == 'x' || fmt -> specifier == 'X'))
 	{
 		should_hex = 1;
-		if ( (int) ft_strlen(hex_str) == 1 && *hex_str == '0')
+		if ((int) ft_strlen(hex_str) == 1 && *hex_str == '0')
 			should_hex = 0;
 	}
-	if ( (int) ft_strlen(hex_str) == 1 && *hex_str == '0' && fmt -> precision == 0)
+	if ((int) ft_strlen(hex_str) == 1
+		&& *hex_str == '0' && fmt -> precision == 0)
 		fmt -> width ++;
 	return (should_hex);
 }
@@ -85,4 +86,3 @@ int	ft_print_precision(t_fmt *fmt, char *s, char pad_char)
 	}
 	return (printed_count);
 }
-
