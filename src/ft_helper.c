@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 22:31:04 by jsoh              #+#    #+#             */
-/*   Updated: 2025/07/09 22:21:50 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/07/09 22:24:48 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_print_width(t_fmt *fmt, char *s, char pad_char)
 	printed_count = 0;
 	pad_len = 0;
 	str_len = (int) ft_strlen(s);
-	ft_check_sign(fmt);
+	ft_check_sign(fmt, s);
 	if (fmt -> precision > str_len)
 	{
 		pad_len = fmt -> width - fmt -> precision;

@@ -5,6 +5,7 @@ OBJ_DIR = obj
 
 SRC = \
 	src/ft_helper.c \
+	src/ft_helper_2.c \
 	src/ft_parse_fmt.c \
 	src/ft_print_fmt_char.c \
 	src/ft_print_fmt_hex.c \
