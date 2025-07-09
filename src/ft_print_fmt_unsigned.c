@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 14:12:17 by jsoh              #+#    #+#             */
-/*   Updated: 2025/07/06 16:31:47 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/07/09 21:18:19 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_print_w_fmt(char *s1, t_fmt *fmt)
 	}
 	else
 	{
-		if (fmt->zero && fmt->precision <= 0)
+		if (fmt->zero && fmt->precision == -2)
 			printed_count += ft_print_width(fmt, s1, '0');
 		else
 			printed_count += ft_print_width(fmt, s1, ' ');

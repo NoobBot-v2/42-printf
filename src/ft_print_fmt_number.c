@@ -6,13 +6,13 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 14:12:17 by jsoh              #+#    #+#             */
-/*   Updated: 2025/07/06 19:52:58 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/07/09 21:17:05 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static int	ft_signed_precision(char **s1, t_fmt *fmt)
+static int	ft_put_sign(char **s1, t_fmt *fmt)
 {
 	int	printed_count;
 
@@ -20,6 +20,7 @@ static int	ft_signed_precision(char **s1, t_fmt *fmt)
 	if (**s1 == '-')
 	{
 		printed_count += write(1, "-", 1);
+		fmt -> width --;
 		(*s1)++;
 	}
 	else
@@ -29,9 +30,18 @@ static int	ft_signed_precision(char **s1, t_fmt *fmt)
 		else if (fmt -> space)
 			printed_count += write(1, " ", 1);
 	}
-	//Zero padding here first
-	//Also check for printing sign regardless of precision 0/ space
-	printed_count += ft_print_precision(fmt, *s1, '0');
+	return (printed_count);
+}
+
+static int	ft_left_justification(char *s1, t_fmt *fmt)
+{
+	int	printed_count;
+
+	printed_count = 0;
+	printed_count += ft_put_sign(&s1, fmt);
+	printed_count += ft_print_precision(fmt, s1, '0');
+	printed_count += ft_print_string(s1);
+	printed_count += ft_print_width(fmt, s1, ' ');
 	return (printed_count);
 }
 
@@ -40,20 +50,24 @@ static int	ft_print_w_fmt(char *s1, t_fmt *fmt)
 	int	printed_count;
 
 	printed_count = 0;
-	if (fmt->minus)
-	{
-		printed_count += ft_signed_precision(&s1, fmt);
-		printed_count += ft_print_string(s1);
-		printed_count += ft_print_width(fmt, s1, ' ');
-	}
+	if (fmt -> minus)
+		printed_count += ft_left_justification(s1, fmt);
 	else
 	{
-		if (fmt->zero && fmt->precision <= 0)
+		if (fmt -> zero && fmt -> precision == -2)
+		{
+			printed_count += ft_put_sign(&s1, fmt);
 			printed_count += ft_print_width(fmt, s1, '0');
+			printed_count += ft_print_precision(fmt, s1, '0');
+			printed_count += ft_print_string(s1);
+		}
 		else
+		{
 			printed_count += ft_print_width(fmt, s1, ' ');
-		printed_count += ft_signed_precision(&s1, fmt);
-		printed_count += ft_print_string(s1);
+			printed_count += ft_put_sign(&s1, fmt);
+			printed_count += ft_print_precision(fmt, s1, '0');
+			printed_count += ft_print_string(s1);
+		}
 	}
 	return (printed_count);
 }
@@ -66,7 +80,13 @@ int	ft_print_fmt_number(int number, t_fmt *fmt)
 	printed_count = 0;
 	if (number == 0 && fmt->precision == 0)
 	{
-		printed_count += ft_print_width(fmt, "", ' ');
+		if (fmt -> plus)
+		{
+			printed_count += ft_print_width(fmt, "", ' ');
+			printed_count += write(1, "+", 1);
+		}
+		else
+			printed_count += ft_print_width(fmt, "", ' ');
 		return (printed_count);
 	}
 	if (number == 0)
@@ -77,3 +97,4 @@ int	ft_print_fmt_number(int number, t_fmt *fmt)
 	free(s1);
 	return (printed_count);
 }
+

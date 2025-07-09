@@ -6,7 +6,7 @@
 /*   By: jsoh <jsoh@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 22:31:04 by jsoh              #+#    #+#             */
-/*   Updated: 2025/07/06 19:43:23 by jsoh             ###   ########.fr       */
+/*   Updated: 2025/07/09 21:49:00 by jsoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,22 @@ static void ft_check_sign(t_fmt *fmt)
 		else if (fmt->space)
 			fmt->width--;
 	}
+}
+
+static int ft_check_hex_value(t_fmt *fmt, char *hex_str)
+{
+	int	should_hex;
+
+	should_hex = 0;
+	if (fmt -> hash && ( fmt -> specifier == 'x'|| fmt -> specifier == 'X'))
+	{
+		should_hex = 1;
+		if ( (int) ft_strlen(hex_str) == 1 && *hex_str == '0')
+			should_hex = 0;
+	}
+	if ( (int) ft_strlen(hex_str) == 1 && *hex_str == '0' && fmt -> precision == 0)
+		fmt -> width ++;
+	return (should_hex);
 }
 
 int	ft_print_width(t_fmt *fmt, char *s, char pad_char)
@@ -41,8 +57,8 @@ int	ft_print_width(t_fmt *fmt, char *s, char pad_char)
 	}
 	else if (fmt -> width > str_len)
 		pad_len = fmt -> width - str_len;
-	if (fmt -> hash && ( fmt -> specifier == 'x'|| fmt -> specifier == 'X'))
-		pad_len = pad_len - 2;
+	if (ft_check_hex_value(fmt, s))
+		pad_len = (fmt -> width - str_len) - 2;
 	while (pad_len > 0)
 	{
 		ft_putchar_fd(pad_char, 1);
@@ -70,16 +86,3 @@ int	ft_print_precision(t_fmt *fmt, char *s, char pad_char)
 	return (printed_count);
 }
 
-void	ft_uppercase(char *s)
-{
-	while (*s)
-	{
-		*s = ft_toupper(*s);
-		s++;
-	}
-}
-
-int	ft_print_string(char *s)
-{
-	return (write(1, s, ft_strlen(s)));
-}
