@@ -11,56 +11,5 @@
 //change leftover_buf into char *leftover_buf[FD]
 //where #define FD 1024
 
-#define BUFFER 42
-#define FD 1024
-
-int ft_strlen(char *s1)
-{
-    int count;
-
-    count = 0;
-    while (s1[count] != '\0')
-        count++;
-    return (count);
-}
-
-char *ft_substring(char *s1, int start, int len)//to convert int to size_t
-{
-    char *substring;
-    int index;
-
-    index = 0;
-    substring = (char *)malloc(len + 1);
-    if (!substring)
-        return ('\0');//to change to NULL
-    while (index < len)
-    {
-        substring[index] = s1[start + index];
-        index++;
-    }
-    substring[index] = '\0';
-    return (substring);
-}
-
-char *ft_return_line(char *remainder_buffer)
-{
-    int index;//to convert to size_t
-    char *new_line;
-    char *temp_buffer;
-
-    index = 0;
-    while (remainder_buffer[index] != '\n')
-        index++;
-    new_line = ft_substring(remainder_buffer, 0, index);
-    temp_buffer = ft_substring(remainder_buffer, index, ft_strlen(remainder_buffer) - index);
-    free (remainder_buffer);
-    remainder_buffer = ft_substring(temp_buffer, 0 , ft_strlen(temp_buffer));
-    free (temp_buffer);
-    return (new_line);
-}
-
-//ssize_t read(int fd, void buf[.count], size_t count);
-char *ft_read()
-{
-
-}
+//NOTE
+//Control it by the bytes read and not by NULL terminators
